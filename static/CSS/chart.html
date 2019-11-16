@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .vega-actions a {
+        margin-right: 12px;
+        color: #757575;
+        font-weight: normal;
+        font-size: 13px;
+    }
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@3.4.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@4"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"width": 400, "height": 300}, "mark": {"tooltip": null}}, "layer": [{"mark": {"type": "line", "color": "orange", "strokeWidth": 2}, "encoding": {"tooltip": [{"type": "quantitative", "field": "Angry"}], "x": {"type": "quantitative", "field": "Time"}, "y": {"type": "quantitative", "field": "Angry"}}}, {"mark": {"type": "line", "color": "red", "strokeWidth": 2}, "encoding": {"tooltip": [{"type": "quantitative", "field": "Disgust"}], "x": {"type": "quantitative", "field": "Time"}, "y": {"type": "quantitative", "field": "Disgust"}}}, {"mark": {"type": "line", "color": "green", "strokeWidth": 2}, "encoding": {"tooltip": [{"type": "quantitative", "field": "Fear"}], "x": {"type": "quantitative", "field": "Time"}, "y": {"type": "quantitative", "field": "Fear"}}}, {"mark": {"type": "line", "color": "blue", "strokeWidth": 2}, "encoding": {"tooltip": [{"type": "quantitative", "field": "Happy"}], "x": {"type": "quantitative", "field": "Time"}, "y": {"type": "quantitative", "field": "Happy"}}}, {"mark": {"type": "line", "color": "black", "strokeWidth": 2}, "encoding": {"tooltip": [{"type": "quantitative", "field": "Sad"}], "x": {"type": "quantitative", "field": "Time"}, "y": {"type": "quantitative", "field": "Sad"}}}, {"mark": {"type": "line", "color": "pink", "strokeWidth": 2}, "encoding": {"tooltip": [{"type": "quantitative", "field": "Surprise"}], "x": {"type": "quantitative", "field": "Time"}, "y": {"type": "quantitative", "field": "Surprise"}}}, {"mark": {"type": "line", "color": "brown", "strokeWidth": 2}, "encoding": {"tooltip": [{"type": "quantitative", "field": "Neutral"}], "x": {"type": "quantitative", "field": "Time"}, "y": {"type": "quantitative", "field": "Neutral"}}}], "data": {"name": "data-845953a912c960bb2a085c9b30646292"}, "height": 400, "title": "Probability of each emotion over time", "width": 1000, "$schema": "https://vega.github.io/schema/vega-lite/v3.4.0.json", "datasets": {"data-845953a912c960bb2a085c9b30646292": [{"Time": 0, "Angry": 0.21265065670013428, "Disgust": 0.0009895968250930311, "Fear": 0.1537470519542694, "Happy": 0.007141869515180588, "Sad": 0.37423309683799744, "Surprise": 0.015093615278601646, "Neutral": 0.2361441105604172}, {"Time": 1, "Angry": 0.07285616546869278, "Disgust": 0.0025625803973525767, "Fear": 0.2457999140024185, "Happy": 0.003538081189617515, "Sad": 0.38305139541625977, "Surprise": 0.054728005081415176, "Neutral": 0.2374638915061951}, {"Time": 2, "Angry": 0.14871011674404144, "Disgust": 0.000989398336969316, "Fear": 0.22044341266155246, "Happy": 0.007338573224842548, "Sad": 0.4305167198181152, "Surprise": 0.004848750308156014, "Neutral": 0.18715298175811768}, {"Time": 3, "Angry": 0.11857572197914125, "Disgust": 0.0003252932801842689, "Fear": 0.2254676967859268, "Happy": 0.002635198645293713, "Sad": 0.33833396434783936, "Surprise": 0.039328113198280334, "Neutral": 0.2753340601921081}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
