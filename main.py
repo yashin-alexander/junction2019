@@ -177,7 +177,7 @@ video_controller = VideoControler()
 ebosher = Ebosher()
 
 
-# YOU JUST SHOULD DEFINE YOUR OBSERVER LIKE EBOSHER
+# YOU JUST SHOULD DEFINE YOUR OBSERVER LIKE EBASHERIO
 
 video_controller.register(ebosher)
 
