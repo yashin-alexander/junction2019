@@ -3,22 +3,13 @@
 
 ### General imports ###
 from __future__ import division
-import numpy as np
-import pandas as pd
-import time
 import altair as alt
 
-### Flask imports
 from flask import Flask, render_template, session, request, redirect, flash, Response
 from flask_sockets import Sockets
 
-### Audio imports ###
 from library.speech_emotion_recognition import *
-
-### Video imports ###
 from library.video_emotion_recognition import *
-
-### Text imports ###
 from library.text_emotion_recognition import *
 from library.text_preprocessor import *
 from nltk import *
@@ -27,8 +18,9 @@ from werkzeug.utils import secure_filename
 import tempfile
 import base64
 import imageio
-
 import gevent
+import gevent.threading
+
 
 VIDEO = []
 TMP_FILE = "tmp.png"
@@ -90,23 +82,23 @@ def video() :
 
 
 # Display the video flow (face, landmarks, emotion)
-# @app.route('/video_1', methods=['GET'])
-# def video_1() :
-    # try :
-        # Response is used to display a flow of information
-        #return Response(gen(OurCv()gen(),mimetype='multipart/x-mixed-replace; boundary=frame')
-        # gen(OurCv())
-        # return render_template('stream.html')
-        # return Response(gen(OurCv()),mimetype='multipart/x-mixed-replace; boundary=frame')
-    # return Response(stream_template('video.html', gen()))
-    # except:
-    # return None
+@app.route('/start_analyzer', methods=['GET'])
+def video_1():
+    try:
+        print('startingg GEVENT thread')
+        return Response(gen(OurCv(), 10),mimetype='multipart/x-mixed-replace; boundary=frame')
+    except:
+        return None
 
 
 @app.route('/video_youtube', methods=['GET'])
-def video_youtube() :
-    #return render_template('stream.html')
-    return Response(gen(OurCv()),mimetype='multipart/x-mixed-replace; boundary=frame')
+def video_youtube():
+    print('startingg GEVENT thread')
+    t = gevent.Greenlet(gen, OurCv(), 10)
+    t.start()
+    print('GEVENT thread started')
+    return render_template('stream.html')
+    # return Response(gen(OurCv()),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 # Dashboard
@@ -505,10 +497,14 @@ def text_pdf():
 def stream(ws):
     while not ws.closed:
         message = ws.receive()
-        print(message[:100])
+        if message is None:
+            gevent.sleep(0.1)
+            print('SLLEPING')
+            continue
+        # print(message[:100])
         prefix, msg = message.split(',')
         print(f"prefix: {prefix}")
-        print(f"msg: {msg[:50]}")
+        # print(f"msg: {msg[:50]}")
 
         if len(prefix) < 5:
             continue
@@ -516,6 +512,7 @@ def stream(ws):
         f = open(TMP_FILE, "wb")
         f.write(base64.b64decode(msg))
         f.close()
+        gevent.sleep(1)
 
 # длина видео
 

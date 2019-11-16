@@ -23,12 +23,13 @@ from imutils import face_utils
 from tensorflow.keras.models import load_model
 from tensorflow.keras import backend as K
 
-def gen(our_cv):
+def gen(our_cv, timeout):
     
     # Start video capute. 0 = Webcam, 1 = Video file, -1 = Webcam for Web
     #video_capture = cv2.VideoCapture(0)
+    print("Gen started in thread")
     video_capture = our_cv.VideoCapture(0)
-    
+
     # Image shape
     shape_x = 48
     shape_y = 48
@@ -139,7 +140,7 @@ def gen(our_cv):
     # Timer
     global k
     k = 0
-    max_time = 5
+    max_time = timeout
     start = time.time()
     
     angry_0 = []
@@ -293,8 +294,8 @@ def gen(our_cv):
         cv2.imwrite('tmp/t.jpg', frame)
         
         # Yield the image at each step
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + open('tmp/t.jpg', 'rb').read() + b'\r\n')
+        # yield (b'--frame\r\n'
+        #        b'Content-Type: image/jpeg\r\n\r\n' + open('tmp/t.jpg', 'rb').read() + b'\r\n')
         
         # Emotion mapping
         #emotion = {0:'Angry', 1:'Disgust', 2:'Fear', 3:'Happy', 4:'Neutral', 5:'Sad', 6:'Surprise'}
@@ -329,14 +330,3 @@ def gen(our_cv):
             print("End recording, ouptut file: static/js/db/prob.csv")
             break
 
-# Clear session to allow user to do another test afterwards
-#K.clear_session()
-
-
-    # d.write(','.join(str(i) for i in angry_0)+'\n')
-    # d.write(','.join(str(i) for i in disgust_1)+'\n')
-    #d.write(','.join(str(i) for i in fear_2)+'\n')
-    # d.write(','.join(str(i) for i in happy_3)+'\n')
-    #  d.write(','.join(str(i) for i in sad_4)+'\n')
-    #  d.write(','.join(str(i) for i in surprise_5)+'\n')
-#  d.write(','.join(str(i) for i in neutral_6)+'\n')
