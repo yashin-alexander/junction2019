@@ -2,38 +2,39 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="/static/CSS/style.css">
       <script type="text/javascript" src="/static/js/d3/d3.js"></script>
       <script src="//d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="/static/css/styleee.css">
     <title>Dashboard</title>
 
   </head>
   <body>
 
-  <a href="/">
+  <!-- <a href="/">
     <img src = "/static/CSS/images/video_head.png" width="100%">
-  </a>
+  </a> -->
 
-  <br>
-  <br>
+  <!-- <br> -->
+  <!-- <br> -->
 
   {% block body %}
 
- <div class="row">
-  <h2><i>Perceived emotions</i></h2>
+ <!-- <div class="row"> -->
+  <!-- <h2>Perceived emotions</h2> -->
    <br>
    <br>
   <div class="column" id="left-col" align="center">
-    <div>
-    <div class="legend1">
+    <h2>Me</h2>
+    <!-- <div> -->
+    <!-- <div class="legend1">
     <div class="legend1"> <p class="country-name"><span class="key-dot you"></span>You</p> </div>
-    <div class="legend1"> <p class="country-name"><span class="key-dot others"></span>Other candidates</p> </div>
-    </div>
+    <div class="legend1"> <p class="country-name"><span class="key-dot others"></span>Other candidates</p> </div> -->
+    <!-- </div> -->
       <div id="hist_density_perso"></div>
     </div>
   </div>
-  <div class="column" id="left-col" align="center">
+  <!-- <div class="column" id="left-col" align="center">
     <h3>Facial Emotions</h3>
       <br>
         <p>Your most frequent emotion is : </p>
@@ -52,22 +53,23 @@
         </div>
       <br>
     <br>
-    </div>
+    </div> -->
   </div>
 
-<br>
+<!-- <br>
   <br>
   <br>
   <br>
   <hr width="50%" style="margin-left: 25%; margin-right:25%">
   <br>
-  <br>
+  <br> -->
 
   <div class="row">
-    <h2><i>Other candidates</i></h2>
-    <br>
-    <br>
+    <!-- <h2><i>Other candidates</i></h2> -->
+    <!-- <br> -->
+    <!-- <br> -->
    <div class="column" id="left-col" align="center">
+    <h2>Other people</h2>
       <div id="hist_density"></div>
    </div>
    <div class="column" id="left-col" align="center">
@@ -77,11 +79,11 @@
        <br>
        <br>
        <br>
-        <p>Other candidates most frequent emotion is : </p>
+        <!-- <p>Other candidates most frequent emotion is : </p>
         <br>
-        <h4> {{emo_other}} </h4>
+        <h4> {{emo_other}} </h4> -->
          
-         <div class="parent">
+         <!-- <div class="parent">
            <ul align="left">
              <li>Angry    : {{prob_other[0]}}%</li>
              <li>Disgust  : {{prob_other[1]}}%</li>
@@ -91,25 +93,33 @@
              <li>Sad      : {{prob_other[5]}}%</li>
              <li>Surprise : {{prob_other[6]}}%</li>
            </ul>
-         </div>
-       <br>
+         </div> -->
+       <!-- <br> -->
      </div>
   </div>
+<!-- <h4> {{test}} </h4> -->
 
+  <div align="center">
+    <p align="center"><h2>{{test}}</h2></p>
+    <!-- <div> -->
+    <!-- <div class="legend1">
+    <div class="legend1"> <p class="country-name"><span class="key-dot you"></span>You</p> </div>
+    <div class="legend1"> <p class="country-name"><span class="key-dot others"></span>Other candidates</p> </div> -->
+    <!-- </div> -->
+  </div>
+ <!-- <br>
+  <br>
+  <br> -->
+  <!-- <hr width="50%" style="margin-left: 25%; margin-right:25%"> -->
+  <!-- <br>
+  <br> -->
 
- <br>
-  <br>
-  <br>
-  <hr width="50%" style="margin-left: 25%; margin-right:25%">
-  <br>
-  <br>
+  <!-- <div class="row"> -->
+    <!-- <h2>Over time</h2> -->
+    <!-- <br> -->
 
-  <div class="row">
-    <h2><i>Over time</i></h2>
-    <br>
-
-  <div style="margin-left:140px;margin-right:140px;margin-top:10px;" align="center">
-  <iframe src="static/CSS/chart.html" width="1300px" height="500px" frameBorder="0"></iframe>
+  <!-- <div style="margin-left:140px;margin-right:140px;margin-top:10px;" align="center"> -->
+  <!-- <iframe src="static/CSS/chart.html" width="1300px" height="500px" frameBorder="0"></iframe> -->
 
   <br>
 
@@ -118,12 +128,13 @@
 
   <!--<img src='newplot.png'>-->
 
-  <form>
+  <!-- <form>
     <input type="button" value="Back" onclick="history.go(-1)">
   </form>
-
+ -->
 
   {% endblock %}
 
 </body>
 </html>
+
