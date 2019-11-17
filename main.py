@@ -184,7 +184,7 @@ video_controller.register(ebosher)
 
 @app.route('/api/video', methods=['POST'])
 def create():
-    video_controller.create_new(duration=request.json.get('duration'))
+    video_controller.create_new(duration=request.json)
     return Response('', 200)
 
 
@@ -244,6 +244,10 @@ def video():
 
 @app.route("/fe_index.html")
 def frontend_static_files():
+    print('startingg GEVENT thread')
+    t = gevent.Greenlet(gen, OurCv(), 10)
+    t.start()
+    print('GEVENT thread started')
     return send_from_directory("static/fe/dist", "index.html")
 
 
@@ -467,7 +471,6 @@ def stream(ws):
         f = open(TMP_FILE, "wb")
         f.write(base64.b64decode(msg))
         f.close()
-        gevent.sleep(1)
 
 
 def main():
