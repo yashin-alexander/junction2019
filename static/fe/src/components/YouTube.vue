@@ -1,6 +1,6 @@
 <template>
     <div>
-        <youtube :video-id="videoId" ref="youtube" @playing="playing" @ready="readyHandler" @paused="paused"></youtube>
+        <youtube style="width: 98vw; height: 90vh;" autoplay :video-id="videoId" ref="youtube" @playing="playing" @ready="readyHandler" @paused="paused"></youtube>
     </div>
 </template>
 
