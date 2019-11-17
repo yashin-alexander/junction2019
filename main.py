@@ -351,8 +351,8 @@ def get_recommendation(df, df_2):
 # Dashboard
 @app.route('/video_dash', methods=("POST", "GET"))
 def video_dash():
-    # TRACKING_STOP_FLAG.set()
-    # EMO_WORKER.t.join()
+    TRACKING_STOP_FLAG.set()
+    EMO_WORKER.t.join()
 
     # Load personal history
     df_2 = pd.read_csv('static/js/db/histo_perso.txt')
