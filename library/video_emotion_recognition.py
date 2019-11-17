@@ -1,30 +1,22 @@
 ### General imports ###
 from __future__ import division
 import numpy as np
-import pandas as pd
 import time
-from time import sleep
-import re
-import os
-import requests
-import argparse
-from collections import OrderedDict
 
 ### Image processing ###
 import cv2
 from scipy.ndimage import zoom
 from scipy.spatial import distance
-import imutils
-from scipy import ndimage
 import dlib
 from imutils import face_utils
+
 
 ### Model ###
 from tensorflow.keras.models import load_model
 from tensorflow.keras import backend as K
 
+
 def gen(our_cv, timeout):
-    
     # Start video capute. 0 = Webcam, 1 = Video file, -1 = Webcam for Web
     #video_capture = cv2.VideoCapture(0)
     print("Gen started in thread")

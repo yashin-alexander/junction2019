@@ -244,7 +244,7 @@ def video():
 
 @app.route("/fe_index.html")
 def frontend_static_files():
-    return send_from_directory("fe/dist", "fe_index.html")
+    return send_from_directory("fe/dist", "index.html")
 
 
 @app.route("/css/<path:path>")
