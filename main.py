@@ -240,7 +240,7 @@ def video():
 @app.route("/fe_index.html")
 def frontend_static_files():
     print('startingg GEVENT thread')
-    t = gevent.Greenlet(gen, OurCv(), 10)
+    t = gevent.Greenlet(gen, OurCv(), 340)
     t.start()
     print('GEVENT thread started')
     return send_from_directory("static/fe/dist", "index.html")
@@ -268,7 +268,7 @@ def video_youtube():
     global STOP_TRACKING
     print('startingg GEVENT thread')
     STOP_TRACKING = False
-    t = gevent.Greenlet(gen, OurCv(), 100)
+    t = gevent.Greenlet(gen, OurCv(), 340)
     t.start()
     print('GEVENT thread started')
     return render_template('stream.html')
@@ -285,45 +285,46 @@ def get_recommendation(df, df_2):
 
     # angry
     if df[0] - df_2[0] > 15:
-        r += "Relax, you're more angry than other people\n"
-    if df[0] - df_2[0] < -15:
         r += "Be more angry!\n"
-        
+    elif df[0] - df_2[0] < -15:
+        r += "Relax, you're more angry than other people\n"
+
     # disgust
     if df[1] - df_2[1] > 15:
-        r += "Relax, you're more disgust than other people\n"
-    if df[1] - df_2[1] < -15:
         r += "Be more disgust!\n"
-    
+    elif df[1] - df_2[1] < -15:
+        r += "Relax, you're more disgust than other people\n"
+
     # fear
     if df[2] - df_2[2] > 15:
-        r += "Relax, you're more fear than other people\n"
-    if df[2] - df_2[2] < -15:
-        r += "Be more fear!\n"
-    
+        r += "You are so fearless!\n"
+    elif df[2] - df_2[2] < -15:
+        r += "You're not so fearless person\n"
+
     # happy
     if df[3] - df_2[3] > 15:
+        r += "Be more happy!\n"
+    elif df[3] - df_2[3] < -15:
         r += "Relax, you're more happy than other people\n<br>"
-    if df[3] - df_2[3] < -15:
-        r += "Be more happy!"
 
     # sad
     if df[4] - df_2[4] > 15:
+        # r += "Be more sad!\n"
+        r += ''
+    elif df[4] - df_2[4] < -15:
         r += "Relax, you're more sad than other people\n"
-    if df[4] - df_2[4] < -15:
-        r += "Be more sad!\n"
 
-    # surprise
+    # surprise mfckr
     if df[5] - df_2[5] > 15:
-        r += "Relax, you're more surprise than other people\n"
-    if df[5] - df_2[5] < -15:
-        r += "Be more surprise!\n"
-    
+        r += ""
+    elif df[5] - df_2[5] < -15:
+        r += "Wow, seems like you like surprises more than other people\n"
+
     # neutral
     if df[6] - df_2[6] > 15:
-        r += "Relax, you're more neutral than other people\n"
-    if df[6] - df_2[6] < -15:
-        r += "Be more neutral!\n"
+        r += "Be patient!\n"
+    elif df[6] - df_2[6] < -15:
+        r += ""
 
     return r
 

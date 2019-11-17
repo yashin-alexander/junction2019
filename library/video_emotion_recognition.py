@@ -5,10 +5,12 @@ import time
 
 ### Image processing ###
 import cv2
+import os
 from scipy.ndimage import zoom
 from scipy.spatial import distance
 import dlib
 from imutils import face_utils
+import shutil
 
 
 ### Model ###
@@ -17,11 +19,32 @@ from tensorflow.keras import backend as K
 
 
 STOP_TRACKING = False
+PHOTO_DIR = 'tmp/photos'
+
+
+def recreate_dir():
+    try:
+       shutil.rmtree(PHOTO_DIR)
+    except OSError as ex:
+        print(ex)
+    try:
+        os.mkdir(PHOTO_DIR)
+    except OSError:
+        pass
+    print('PHOTO DIR RECREATED')
+
+
+def save_frame_to_dir(frame, k):
+    path = os.path.join(PHOTO_DIR, str(k) + '.jpg')
+    print(path)
+    cv2.imwrite(path, frame)
 
 
 def gen(our_cv, timeout):
     # Start video capute. 0 = Webcam, 1 = Video file, -1 = Webcam for Web
     #video_capture = cv2.VideoCapture(0)
+    recreate_dir()
+    i = 0
     print("Gen started in thread")
     video_capture = our_cv.VideoCapture(0)
 
@@ -165,11 +188,11 @@ def gen(our_cv, timeout):
         rects = face_detect(gray, 1)
         
         #gray, detected_faces, coord = detect_face(frame)
-        
-        
+
+
         # For each detected face
         for (i, rect) in enumerate(rects):
-            
+
             # Identify face coordinates
             (x, y, w, h) = face_utils.rect_to_bb(rect)
             face = gray[y:y+h,x:x+w]
@@ -287,6 +310,7 @@ def gen(our_cv, timeout):
         
         # For flask, save image as t.jpg (rewritten at each step)
         cv2.imwrite('tmp/t.jpg', frame)
+        save_frame_to_dir(frame, int(end))
         
         # Yield the image at each step
         # yield (b'--frame\r\n'
