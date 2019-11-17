@@ -256,12 +256,19 @@ def frontend_js(path):
     return send_from_directory("static/fe/dist/js", path)
 
 
+@app.route('/stop_emo_tracking', methods=["GET", "POST"])
+def stop_emo_tracking():
+    global STOP_TRACKING
+    STOP_TRACKING = True
+    return ""
 
 
 @app.route('/video_youtube', methods=['GET'])
 def video_youtube():
+    global STOP_TRACKING
     print('startingg GEVENT thread')
-    t = gevent.Greenlet(gen, OurCv(), 10)
+    STOP_TRACKING = False
+    t = gevent.Greenlet(gen, OurCv(), 100)
     t.start()
     print('GEVENT thread started')
     return render_template('stream.html')
@@ -466,6 +473,7 @@ def stream(ws):
         f = open(TMP_FILE, "wb")
         f.write(base64.b64decode(msg))
         f.close()
+        gevent.sleep(0.1)
 
 
 def main():

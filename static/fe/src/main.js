@@ -30,7 +30,6 @@ window.addEventListener("DOMContentLoaded", function() {
         }
 })
 
-
 Vue.use(VueYoutube)
 Vue.config.productionTip = false
 

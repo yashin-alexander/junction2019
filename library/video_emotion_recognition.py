@@ -16,6 +16,9 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras import backend as K
 
 
+STOP_TRACKING = False
+
+
 def gen(our_cv, timeout):
     # Start video capute. 0 = Webcam, 1 = Video file, -1 = Webcam for Web
     #video_capture = cv2.VideoCapture(0)
@@ -145,7 +148,7 @@ def gen(our_cv, timeout):
 
     # Record for 45 seconds
     while True: #end - start < max_time :
-        
+
         k = k+1
         end = time.time()
         
@@ -293,7 +296,7 @@ def gen(our_cv, timeout):
         #emotion = {0:'Angry', 1:'Disgust', 2:'Fear', 3:'Happy', 4:'Neutral', 5:'Sad', 6:'Surprise'}
         
         # Once reaching the end, write the results to the personal file and to the overall file
-        if end-start > max_time - 1 :
+        if end-start > max_time - 1 or STOP_TRACKING:
             with open("static/js/db/histo_perso.txt", "w") as d:
                 d.write("density"+'\n')
                 for val in predictions :

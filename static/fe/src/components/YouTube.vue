@@ -1,7 +1,7 @@
 <template>
     <div>
         <youtube style="width: 98vw; height: 90vh;" autoplay :video-id="videoId" ref="youtube" @playing="playing" @ready="readyHandler" @paused="paused"></youtube>
-        <a href="/video_dash">To analysis</a>
+        <a href="/video_dash" @click="handle_click">To analysis</a>
     </div>
 </template>
 
@@ -23,6 +23,13 @@
         },
 
         methods: {
+            handle_click(e) {
+                e.preventDefault()
+                axios.post("/stop_emo_tracking")
+                    .then(() => {
+                        window.location.href = "/video_dash"
+                    })
+            },
             async readyHandler() {
                 this.player = this.$refs.youtube.player;
 
