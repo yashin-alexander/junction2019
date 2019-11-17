@@ -5,7 +5,7 @@
 from __future__ import division
 import altair as alt
 
-from flask import Flask, render_template, session, request, redirect, flash, Response
+from flask import Flask, render_template, session, request, redirect, flash, Response, send_from_directory, send_file
 from flask_sockets import Sockets
 
 from library.speech_emotion_recognition import *
@@ -184,7 +184,7 @@ video_controller.register(ebosher)
 
 @app.route('/api/video', methods=['POST'])
 def create():
-    video_controller.create_new(duration=request.json)
+    video_controller.create_new(duration=request.json.get('duration'))
     return Response('', 200)
 
 
@@ -226,20 +226,37 @@ df = pd.read_csv('static/js/db/histo.txt', sep=",")
 
 # Video interview template
 @app.route('/video', methods=['POST'])
-def video() :
+def video():
     # Display a warning message
     flash('You will have 45 seconds to discuss the topic mentioned above. Due to restrictions, we are not able to redirect you once the video is over. Please move your URL to /video_dash instead of /video_1 once over. You will be able to see your results then.')
     return render_template('video.html')
 
 
 # Display the video flow (face, landmarks, emotion)
-@app.route('/start_analyzer', methods=['GET'])
-def video_1():
-    try:
-        print('startingg GEVENT thread')
-        return Response(gen(OurCv(), 10),mimetype='multipart/x-mixed-replace; boundary=frame')
-    except:
-        return None
+# @app.route('/start_analyzer', methods=['GET'])
+# def video_1():
+    # try:
+    #     print('startingg GEVENT thread')
+    #     return Response(gen(OurCv(), 10),mimetype='multipart/x-mixed-replace; boundary=frame')
+    # except:
+    #     return None
+
+
+@app.route("/fe_index.html")
+def frontend_static_files():
+    return send_from_directory("fe/dist", "fe_index.html")
+
+
+@app.route("/css/<path:path>")
+def frontend_css(path):
+    return send_from_directory("fe/dist/css", path)
+
+
+@app.route("/js/<path:path>")
+def frontend_js(path):
+    return send_from_directory("fe/dist/js", path)
+
+
 
 
 @app.route('/video_youtube', methods=['GET'])
@@ -394,8 +411,6 @@ def stream(ws):
         f.write(base64.b64decode(msg))
         f.close()
         gevent.sleep(1)
-
-# длина видео
 
 
 def main():
