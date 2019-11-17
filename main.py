@@ -303,38 +303,41 @@ def get_recommendation(df, df_2):
 
     print(df[0] - df_2[0])
 
-    if abs(df[0] - df_2[0]) > 15:
-        r += "Relax, you probably have problems with anger "
-    else:
-        r += "Your anger level is OK "
+    # if abs(df[0] - df_2[0]) > 15:
+    #     pass
+        # r += "Relax, you probably have problems with anger; "
+    # else:
+    #     r += "Your anger level is OK; "
 
-    if abs(df[1] - df_2[1]) > 15:
-        r += "You probably have problems with disgust "
-    else:
-        r += "Yor disgusting level is OK"
+    # if abs(df[1] - df_2[1]) > 15:
+    #     pass
+        # r += "You probably have problems with disgust; "
+    # else:
+    #     r += "Yor disgusting level is OK; "
 
-    if abs(df[2] - df_2[2]) > 15:
-        r += "You're not brave person "
-    else:
-        r += "Your fear level is OK "
+    # if abs(df[2] - df_2[2]) > 15:
+    #     pass
+    #     r += "You're not brave person; "
+    # else:
+    #     r += "Your fear level is OK; "
 
     if abs(df[3] - df_2[3]) > 15:
-        r += "Ary you happy enough? Seems like. "
+        r += "Ary you happy enough? Seems like!; "
     else:
-        r += "Your happiness level is OK"
+        r += "Your happiness level is OK; "
 
     if abs(df[4] - df_2[4]) > 15:
-        r += 'You\'re too sad '
-    else:
-        r += ''
+        r += 'Your sad level is too high; '
+    # else:
+    #     r += ''
 
-    if abs(df[5] - df_2[5]) > 15:
-        r += "Seems like you surprises more than other people "
+    if df[5] - df_2[5] > 15:
+        r += "Seems like you surprises more than other people; "
 
-    if abs(df[5] - df_2[5]) > 15:
-        pass
-    else:
-        r += "Be patient! "
+    # if abs(df[5] - df_2[5]) > 15:
+    #     pass
+    # else:
+    #     r += "Be patient!; "
 
     return r
 
