@@ -236,11 +236,32 @@ def video():
     # except:
     #     return None
 
+class StopFlag:
+    def __init__(self):
+        self._flag = False
+
+    def is_set(self):
+        return self._flag
+
+    def set(self, value=True):
+        self._flag = value
+
+
+class Worker:
+    def __init__(self):
+        self.t = None
+
+
+EMO_WORKER = Worker()
+TRACKING_STOP_FLAG = StopFlag()
+
 
 @app.route("/fe_index.html")
 def frontend_static_files():
     print('startingg GEVENT thread')
-    t = gevent.Greenlet(gen, OurCv(), 340)
+    TRACKING_STOP_FLAG.set(False)
+    t = gevent.Greenlet(gen, OurCv(), 340, TRACKING_STOP_FLAG)
+    EMO_WORKER.t = t
     t.start()
     print('GEVENT thread started')
     return send_from_directory("static/fe/dist", "index.html")
@@ -258,21 +279,19 @@ def frontend_js(path):
 
 @app.route('/stop_emo_tracking', methods=["GET", "POST"])
 def stop_emo_tracking():
-    global STOP_TRACKING
-    STOP_TRACKING = True
     return ""
 
 
-@app.route('/video_youtube', methods=['GET'])
-def video_youtube():
-    global STOP_TRACKING
-    print('startingg GEVENT thread')
-    STOP_TRACKING = False
-    t = gevent.Greenlet(gen, OurCv(), 340)
-    t.start()
-    print('GEVENT thread started')
-    return render_template('stream.html')
-    # return Response(gen(OurCv()),mimetype='multipart/x-mixed-replace; boundary=frame')
+# @app.route('/video_youtube', methods=['GET'])
+# def video_youtube():
+#     global STOP_TRACKING
+#     print('startingg GEVENT thread')
+#     STOP_TRACKING = False
+#     t = gevent.Greenlet(gen, OurCv(), 340)
+#     t.start()
+#     print('GEVENT thread started')
+#     return render_template('stream.html')
+#     return Response(gen(OurCv()),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 def get_recommendation(df, df_2):
@@ -332,7 +351,9 @@ def get_recommendation(df, df_2):
 # Dashboard
 @app.route('/video_dash', methods=("POST", "GET"))
 def video_dash():
-    
+    # TRACKING_STOP_FLAG.set()
+    # EMO_WORKER.t.join()
+
     # Load personal history
     df_2 = pd.read_csv('static/js/db/histo_perso.txt')
 

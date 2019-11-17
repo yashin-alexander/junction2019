@@ -18,7 +18,6 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras import backend as K
 
 
-STOP_TRACKING = False
 PHOTO_DIR = 'tmp/photos'
 
 
@@ -40,7 +39,7 @@ def save_frame_to_dir(frame, k):
     cv2.imwrite(path, frame)
 
 
-def gen(our_cv, timeout):
+def gen(our_cv, timeout, stop_flag):
     # Start video capute. 0 = Webcam, 1 = Video file, -1 = Webcam for Web
     #video_capture = cv2.VideoCapture(0)
     recreate_dir()
@@ -320,7 +319,8 @@ def gen(our_cv, timeout):
         #emotion = {0:'Angry', 1:'Disgust', 2:'Fear', 3:'Happy', 4:'Neutral', 5:'Sad', 6:'Surprise'}
         
         # Once reaching the end, write the results to the personal file and to the overall file
-        if end-start > max_time - 1 or STOP_TRACKING:
+        print(stop_flag.is_set())
+        if (end-start > max_time - 1) or stop_flag.is_set():
             with open("static/js/db/histo_perso.txt", "w") as d:
                 d.write("density"+'\n')
                 for val in predictions :
