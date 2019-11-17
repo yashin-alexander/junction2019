@@ -1,7 +1,6 @@
 <template>
     <div>
         <youtube :video-id="videoId" ref="youtube" @playing="playing" @ready="readyHandler" @paused="paused"></youtube>
-        <button @click="playVideo">play</button>
     </div>
 </template>
 

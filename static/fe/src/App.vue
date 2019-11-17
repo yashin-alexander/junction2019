@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <video autoplay></video>
+    <video style="height: 0px; opacity: 0;" autoplay></video>
     <YouTube></YouTube>
   </div>
 </template>
