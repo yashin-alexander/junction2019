@@ -1,6 +1,7 @@
 <template>
     <div>
         <youtube style="width: 98vw; height: 90vh;" autoplay :video-id="videoId" ref="youtube" @playing="playing" @ready="readyHandler" @paused="paused"></youtube>
+        <a href="/video_dash">To analysis</a>
     </div>
 </template>
 
@@ -16,7 +17,7 @@
 
         data() {
             return {
-                videoId: 'VetJa7a7gFs',
+                videoId: '6hlx2Jr-oG0',
                 player: null
             }
         },

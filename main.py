@@ -5,17 +5,12 @@
 from __future__ import division
 import altair as alt
 
-from flask import Flask, render_template, session, request, redirect, flash, Response, send_from_directory, send_file
+from flask import Flask, render_template, request, flash, Response, send_from_directory
 from flask_sockets import Sockets
 
-from library.speech_emotion_recognition import *
 from library.video_emotion_recognition import *
-from library.text_emotion_recognition import *
 from library.text_preprocessor import *
 from nltk import *
-from tika import parser
-from werkzeug.utils import secure_filename
-import tempfile
 import base64
 import imageio
 import gevent
