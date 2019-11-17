@@ -15,6 +15,7 @@ import base64
 import imageio
 import gevent
 import gevent.threading
+import math
 
 
 VIDEO = []
@@ -302,48 +303,38 @@ def get_recommendation(df, df_2):
 
     print(df[0] - df_2[0])
 
-    # angry
-    if df[0] - df_2[0] > 15:
-        r += "Be more angry!\n"
-    elif df[0] - df_2[0] < -15:
-        r += "Relax, you're more angry than other people\n"
+    if abs(df[0] - df_2[0]) > 15:
+        r += "Relax, you probably have problems with anger "
+    else:
+        r += "Your anger level is OK "
 
-    # disgust
-    if df[1] - df_2[1] > 15:
-        r += "Be more disgust!\n"
-    elif df[1] - df_2[1] < -15:
-        r += "Relax, you're more disgust than other people\n"
+    if abs(df[1] - df_2[1]) > 15:
+        r += "You probably have problems with disgust "
+    else:
+        r += "Yor disgusting level is OK"
 
-    # fear
-    if df[2] - df_2[2] > 15:
-        r += "You are so fearless!\n"
-    elif df[2] - df_2[2] < -15:
-        r += "You're not so fearless person\n"
+    if abs(df[2] - df_2[2]) > 15:
+        r += "You're not brave person "
+    else:
+        r += "Your fear level is OK "
 
-    # happy
-    if df[3] - df_2[3] > 15:
-        r += "Be more happy!\n"
-    elif df[3] - df_2[3] < -15:
-        r += "Relax, you're more happy than other people\n<br>"
+    if abs(df[3] - df_2[3]) > 15:
+        r += "Ary you happy enough? Seems like. "
+    else:
+        r += "Your happiness level is OK"
 
-    # sad
-    if df[4] - df_2[4] > 15:
-        # r += "Be more sad!\n"
+    if abs(df[4] - df_2[4]) > 15:
+        r += 'You\'re too sad '
+    else:
         r += ''
-    elif df[4] - df_2[4] < -15:
-        r += "Relax, you're more sad than other people\n"
 
-    # surprise mfckr
-    if df[5] - df_2[5] > 15:
-        r += ""
-    elif df[5] - df_2[5] < -15:
-        r += "Wow, seems like you like surprises more than other people\n"
+    if abs(df[5] - df_2[5]) > 15:
+        r += "Seems like you surprises more than other people "
 
-    # neutral
-    if df[6] - df_2[6] > 15:
-        r += "Be patient!\n"
-    elif df[6] - df_2[6] < -15:
-        r += ""
+    if abs(df[5] - df_2[5]) > 15:
+        pass
+    else:
+        r += "Be patient! "
 
     return r
 
