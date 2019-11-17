@@ -269,6 +269,59 @@ def video_youtube():
     # return Response(gen(OurCv()),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
+def get_recommendation(df, df_2):
+    r = ""
+
+    print(df)
+    print(df_2)
+
+    print(df[0] - df_2[0])
+
+    # angry
+    if df[0] - df_2[0] > 15:
+        r += "Relax, you're more angry than other people\n"
+    if df[0] - df_2[0] < -15:
+        r += "Be more angry!\n"
+        
+    # disgust
+    if df[1] - df_2[1] > 15:
+        r += "Relax, you're more disgust than other people\n"
+    if df[1] - df_2[1] < -15:
+        r += "Be more disgust!\n"
+    
+    # fear
+    if df[2] - df_2[2] > 15:
+        r += "Relax, you're more fear than other people\n"
+    if df[2] - df_2[2] < -15:
+        r += "Be more fear!\n"
+    
+    # happy
+    if df[3] - df_2[3] > 15:
+        r += "Relax, you're more happy than other people\n<br>"
+    if df[3] - df_2[3] < -15:
+        r += "Be more happy!"
+
+    # sad
+    if df[4] - df_2[4] > 15:
+        r += "Relax, you're more sad than other people\n"
+    if df[4] - df_2[4] < -15:
+        r += "Be more sad!\n"
+
+    # surprise
+    if df[5] - df_2[5] > 15:
+        r += "Relax, you're more surprise than other people\n"
+    if df[5] - df_2[5] < -15:
+        r += "Be more surprise!\n"
+    
+    # neutral
+    if df[6] - df_2[6] > 15:
+        r += "Relax, you're more neutral than other people\n"
+    if df[6] - df_2[6] < -15:
+        r += "Be more neutral!\n"
+
+    return r
+
+
 # Dashboard
 @app.route('/video_dash', methods=("POST", "GET"))
 def video_dash():
@@ -302,7 +355,7 @@ def video_dash():
     df_glob = pd.DataFrame.from_dict(emo_glob, orient='index')
     df_glob = df_glob.reset_index()
     df_glob.columns = ['EMOTION', 'VALUE']
-    df_glob.to_csv('static/js/db/hist_vid_glob.txt', sep=",", index=False)
+    #df_glob.to_csv('static/js/db/hist_vid_glob.txt', sep=",", index=False)
 
     emotion = df_2.density.mode()[0]
     emotion_other = df.density.mode()[0]
@@ -377,6 +430,10 @@ def video_dash():
     print("EMOTIONAL TABLE = {} ".format(emotion))
     print("EMO  = {} ".format(df_2))
     
+    
+    recommendation = get_recommendation(emo_prop(df), emo_prop(df_2))
+
+    return render_template('video_dash.html', emo=emotion_label(emotion), emo_other = emotion_label(emotion_other), prob = emo_prop(df_2), prob_other = emo_prop(df), test=recommendation)
     return render_template('video_dash.html', emo=emotion_label(emotion), emo_other = emotion_label(emotion_other), prob = emo_prop(df_2), prob_other = emo_prop(df))
 
 @app.after_request
