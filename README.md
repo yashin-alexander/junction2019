@@ -28,3 +28,17 @@ Also, we can use additional markers to process emotions as Heart Rate (HR) and R
 - Schaefer, A., Nils, F., Sanchez, X., & Philippot, P. (2010).
 Assessing the effectiveness of a large database of emotion eliciting films: A new tool for emotion researchers. Cognition & Emotion, 24, 1153–1172. doi:10.1080/02699930903274322
 - https://www.overleaf.com/read/xvtrrfpvzwhf
+
+## Screens
+
+Main screen
+![Alt text](img/gump.png "Title")
+Movie
+![Alt text](img/gump2.png "Title")
+Face recognition
+
+![Alt text](img/t.jpg "Title")
+![Alt text](img/gump5.jpg "Title")
+
+Results
+![Alt text](img/gump3.png "Title")
